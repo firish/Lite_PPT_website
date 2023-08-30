@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TE 510 Advanced Creativity</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            background-image: url('bck1.JPG');
+            background-repeat: no-repeat;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .presentation-container {
+            background-color: #ffffff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1, h2 {
+            text-align: center;
+        }
+
+        .image-slider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 20px;
+            background-size:contain;
+            background-repeat: no-repeat;
+        }
+
+        .slider-button {
+            background-color: #e0e0e0;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            margin-left: 15px;
+        }
+
+        .slider-image {
+            width: 600px; /* Increased width */
+            height: 400px; /* Increased height */
+            object-fit: cover;
+            margin: 0 10px;
+            transition: opacity 0.5s, transform 0.5s; /* Updated this line */
+            opacity: 1;
+            transform: rotate(0deg); /* Add this line */
+
+        }
+
+        .image-description {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation-container">
+        <h1>TE 510 ADVANCED CREATIVITY</h1>
+        <h2>Rishi Gulati</h2>
+        <div class="image-slider">
+            <button class="slider-button" id="prevBtn">←</button>
+            <div id="mediaContainer" class="slider-image"></div>
+            <button class="slider-button" id="nextBtn">→</button>
+        </div>
+        <div class="image-description" id="imageDesc">Hey, welcome to my "FUN" and "CREATIVE" presentation.</div>
+    </div>
+
+    <script>
+        const clickSound = new Audio('yay.mp3');
+        const clickSound2 = new Audio('boo.mp3');
+        const soundElement = document.getElementById('clickSound');
+        const soundElement2 = document.getElementById('clickSound2');
+        function playSound() {
+            clickSound.play();
+        }
+        function playSound2() {
+            clickSound2.play();
+        }
+
+
+
+        let currentImageIndex = 0;
+        const images = [
+            "first.jpeg",
+            "image2.JPG",
+            "image3.png",
+            "image4.jpg",
+            "image5.gif",
+            "image7.gif",
+            "image8.MOV",
+            "image9.MOV",
+            "image10.MOV",
+            "image16.mp4",
+            "image11.MOV",
+            "image12.MOV",
+            "image13.gif",
+            "image14.gif",
+        ];
+        
+        const descriptions = [
+            "Hey, welcome to my \"FUN\" and \"CREATIVE\" presentation.",
+            "A Venn diagram explaining what you are seeing, and why.",
+            "Short-term goal - next 6 months.",
+            "Middle-term goal - next 3 years.",
+            "LIFE GOALS!!!",
+            "Interests? I love to learn ..",
+            "Most recently (2 weeks ago), I learnt how to snorkel!",
+            "Last year, I did indoor sky-diving for the first time!",
+            "For the past few months, I am also trying my hand at surfing!",
+            "Sand surfing go brrrrrrrrr! (cant see the board though ..)",
+            "Last month, I also learnt self-defense!",
+            "This spring, I tried outoor skiing, and loved it!",
+            "When I am not working or learning something new, I love to unwind and relax by watching sports, or playing board games.",
+            "Thank you for your time!"
+        ];
+
+        const sliderImg = document.getElementById('sliderImg');
+        const imageDesc = document.getElementById('imageDesc');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+
+        function changeImage() {
+            const mediaContainer = document.getElementById('mediaContainer');
+            mediaContainer.innerHTML = ''; // Clear the container
+
+            if (images[currentImageIndex].endsWith('.MOV') || images[currentImageIndex].endsWith('.mp4')) {
+                const videoElement = document.createElement('video');
+                videoElement.src = images[currentImageIndex];
+                videoElement.controls = true; // Add controls to the video
+                videoElement.className = 'slider-image'; // Apply the same styles
+                mediaContainer.appendChild(videoElement);
+            } else {
+                const imgElement = document.createElement('img');
+                imgElement.src = images[currentImageIndex];
+                imgElement.alt = `Slide ${currentImageIndex + 1}`;
+                imgElement.className = 'slider-image'; // Apply the same styles
+                mediaContainer.appendChild(imgElement);
+            }
+
+            imageDesc.textContent = descriptions[currentImageIndex];
+            }
+        changeImage();
+
+
+        prevBtn.addEventListener('click', () => {
+            currentImageIndex--;
+            if (currentImageIndex < 0) currentImageIndex = images.length - 1;
+            changeImage();
+            playSound2();
+            sliderImg.src = images[currentImageIndex];
+            imageDesc.textContent = descriptions[currentImageIndex];
+        });
+
+        nextBtn.addEventListener('click', () => {
+            currentImageIndex++;
+            if (currentImageIndex >= images.length) currentImageIndex = 0;
+            changeImage();
+            playSound();
+            sliderImg.src = images[currentImageIndex];
+            imageDesc.textContent = descriptions[currentImageIndex];
+        });
+
+
+    </script>
+</body>
+</html>
